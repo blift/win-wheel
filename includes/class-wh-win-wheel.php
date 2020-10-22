@@ -159,6 +159,7 @@ class Wh_Win_Wheel {
 
 		// Add settings plugin page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
 
 	}
 

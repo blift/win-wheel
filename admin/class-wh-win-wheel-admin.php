@@ -119,4 +119,168 @@ class Wh_Win_Wheel_Admin {
 		include 'partials/wh-win-wheel-admin-display.php';
 	}
 
+	// All the hooks for admin init
+	public function admin_init()
+	{
+		// Add sections 
+		$this->add_settings_sections();
+
+		// Add fields
+		$this->add_settings_fields();
+
+		// Save setting
+		$this->save_fields();
+
+	}
+
+	// Callback for sections from admin init
+	public function add_settings_sections()
+	{
+		// Add text to display
+		add_settings_section(
+			'wh-win-wheel-general-section', 
+			'Add general text', 
+			function(){ echo 'There will be general settings'; }, 
+			'wh-win-wheel-settings'
+		);
+
+		// Add form with dynamic fields
+		add_settings_section(
+			'wh-win-wheel-form-section', 
+			'Add images with text', 
+			function(){ echo 'There will be form settings'; }, 
+			'wh-win-wheel-settings'
+		);
+	}
+
+	// Callback for fields from admin init
+	public function add_settings_fields()
+	{
+		// For text
+		add_settings_field(
+			'win_wheel_text_field', 
+			'Test field', 
+			[$this, 'general_text_field_cb'],  
+			'wh-win-wheel-settings', 
+			'wh-win-wheel-general-section',
+			[
+				'name' => 'win_wheel_text_field',
+				'value' => get_option('win_wheel_text_field')
+			]
+		);
+
+		// For form img
+		// add_settings_field(
+		// 	'win_wheel_form_img_field', 
+		// 	'Test field img', 
+		// 	[$this, 'form_img_field_cb'], 
+		// 	'wh-win-wheel-settings', 
+		// 	'wh-win-wheel-form-section',
+		// 	[
+		// 		'name' => 'win_wheel_form_img_field',
+		// 		'value' => get_option('win_wheel_form_img_field')
+		// 	]
+		// );
+
+		// For form text
+		add_settings_field(
+			'win_wheel_form_txt_field', 
+			'Test field text', 
+			[$this, 'form_img_field_cb'],
+			'wh-win-wheel-settings', 
+			'wh-win-wheel-form-section',
+			[
+				'name' => 'win_wheel_form_txt_field',
+				'value' => get_option('win_wheel_form_txt_field'),
+				'name2' => 'win_wheel_form_img_field',
+				'value2' => get_option('win_wheel_form_img_field')
+			]
+		);
+
+	}
+
+	// Callback for save fields from init
+	public function save_fields()
+	{
+		// For text
+		register_setting(
+			'wh-win-wheel-settings-group', 
+			'win_wheel_text_field',
+			array(
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
+
+		//  For form img
+		register_setting(
+			'wh-win-wheel-settings-group', 
+			'win_wheel_form_img_field'
+		);
+
+		//  For form txt
+		register_setting(
+			'wh-win-wheel-settings-group', 
+			'win_wheel_form_txt_field',
+			array(
+				'sanitize_callback' => 'sanitize_text_field'
+			)
+		);
+	}
+
+
+	// function for general text
+	public function general_text_field_cb($args)
+	{
+
+		$name = ( isset($args['name']) ? esc_html($args['name']) : '' );
+		$value = ( isset($args['value']) ? esc_html($args['value']) : '' );
+
+		?>
+			<input 
+				type="text"
+				name="<?php echo $name ?>"
+				value="<?php echo $value ?>"
+				class="field-<?php echo $name ?>"
+			/>
+		<?php
+	}
+
+	// function for img
+	public function form_img_field_cb($args)
+	{
+		$test1[] = get_option('win_wheel_form_txt_field');
+		$test2[] = get_option('win_wheel_form_img_field');
+
+		$tests[] = array_merge($test1, $test2);
+
+		foreach($tests as $test ) {
+			echo '<pre>';
+			var_dump($test);
+			echo '</pre>';
+		}
+
+
+		$name = ( isset($args['name']) ? esc_html($args['name']) : '' );
+		$value = ( isset($args['value']) ? esc_html($args['value']) : '' );
+
+		$name2 = ( isset($args['name2']) ? esc_html($args['name2']) : '' );
+		$value2 = ( isset($args['value2']) ? esc_html($args['value2']) : '' );
+
+		?>
+			<input 
+				type="text"
+				name="<?php echo $name ?>"
+				value="<?php echo $value ?>"
+				class="field-<?php echo $name ?>"
+			/>
+			
+			<input 
+				type="text"
+				name="<?php echo $name2 ?>"
+				value="<?php echo $value2 ?>"
+				class="field-<?php echo $name2 ?>"
+			/>
+		<?php
+	}
+
 }
