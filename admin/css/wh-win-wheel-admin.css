@@ -1,0 +1,38 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.wh-win-will-container {
+    width: 80%;
+    padding: 15px;
+    background-color: #B8E1FF;
+    border-radius: 4px;
+}
+ 
+.row-columns {
+    width: 100%;
+}
+
+.column-6 {
+    width: 49%;
+    display: inline-block;
+}
+
+.button-add-more {
+    position: relative;
+    height: 80px;
+}
+
+.button-add-more .add-more {
+    position: absolute;
+    right: 30px;
+    border: solid 1px #A9FFF7;
+    background-color: #A9FFF7;
+    color: #82ABA1;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 4px;
+}
