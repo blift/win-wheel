@@ -144,13 +144,6 @@ class Wh_Win_Wheel_Admin {
 			'wh-win-wheel-settings'
 		);
 
-		// Add form with dynamic fields
-		add_settings_section(
-			'wh-win-wheel-form-section', 
-			'Add images with text', 
-			function(){ echo 'There will be form settings'; }, 
-			'wh-win-wheel-settings'
-		);
 	}
 
 	// Callback for fields from admin init
@@ -168,35 +161,6 @@ class Wh_Win_Wheel_Admin {
 				'value' => get_option('win_wheel_text_field')
 			]
 		);
-
-		// For form img
-		// add_settings_field(
-		// 	'win_wheel_form_img_field', 
-		// 	'Test field img', 
-		// 	[$this, 'form_img_field_cb'], 
-		// 	'wh-win-wheel-settings', 
-		// 	'wh-win-wheel-form-section',
-		// 	[
-		// 		'name' => 'win_wheel_form_img_field',
-		// 		'value' => get_option('win_wheel_form_img_field')
-		// 	]
-		// );
-
-		// For form text
-		add_settings_field(
-			'win_wheel_form_txt_field', 
-			'Test field text', 
-			[$this, 'form_img_field_cb'],
-			'wh-win-wheel-settings', 
-			'wh-win-wheel-form-section',
-			[
-				'name' => 'win_wheel_form_txt_field',
-				'value' => get_option('win_wheel_form_txt_field'),
-				'name2' => 'win_wheel_form_img_field',
-				'value2' => get_option('win_wheel_form_img_field')
-			]
-		);
-
 	}
 
 	// Callback for save fields from init
@@ -206,21 +170,6 @@ class Wh_Win_Wheel_Admin {
 		register_setting(
 			'wh-win-wheel-settings-group', 
 			'win_wheel_text_field',
-			array(
-				'sanitize_callback' => 'sanitize_text_field'
-			)
-		);
-
-		//  For form img
-		register_setting(
-			'wh-win-wheel-settings-group', 
-			'win_wheel_form_img_field'
-		);
-
-		//  For form txt
-		register_setting(
-			'wh-win-wheel-settings-group', 
-			'win_wheel_form_txt_field',
 			array(
 				'sanitize_callback' => 'sanitize_text_field'
 			)
@@ -245,42 +194,162 @@ class Wh_Win_Wheel_Admin {
 		<?php
 	}
 
-	// function for img
-	public function form_img_field_cb($args)
-	{
-		$test1[] = get_option('win_wheel_form_txt_field');
-		$test2[] = get_option('win_wheel_form_img_field');
-
-		$tests[] = array_merge($test1, $test2);
-
-		foreach($tests as $test ) {
-			echo '<pre>';
-			var_dump($test);
-			echo '</pre>';
-		}
 
 
-		$name = ( isset($args['name']) ? esc_html($args['name']) : '' );
-		$value = ( isset($args['value']) ? esc_html($args['value']) : '' );
+	/**
+	 * Repeatable Custom Fields in a Metabox
+	 * Author: Helen Hou-Sandi
+	 *
+	 * From a bespoke system, so currently not modular - will fix soon
+	 * Note that this particular metadata is saved as one multidimensional array (serialized)
+	 */
+	
+	private function hhs_get_sample_options() {
+		$options = array (
+			'Option 1' => 'option1',
+			'Option 2' => 'option2'
+		);
+		
+		return $options;
+	}
 
-		$name2 = ( isset($args['name2']) ? esc_html($args['name2']) : '' );
-		$value2 = ( isset($args['value2']) ? esc_html($args['value2']) : '' );
+	public function hhs_add_meta_boxes() {
+		add_meta_box( 
+			'repeatable-fields', 
+			'Repeatable Fields', 
+			[$this, 'hhs_repeatable_meta_box_display'], 
+			'post', 
+			'normal', 
+			'default'
+		);
+	}
 
+	public function hhs_repeatable_meta_box_display() {
+		global $post;
+
+		$repeatable_fields = get_post_meta($post->ID, 'repeatable_fields', true);
+		$options = $this->hhs_get_sample_options();
+
+		wp_nonce_field( 'hhs_repeatable_meta_box_nonce', 'hhs_repeatable_meta_box_nonce' );
 		?>
-			<input 
-				type="text"
-				name="<?php echo $name ?>"
-				value="<?php echo $value ?>"
-				class="field-<?php echo $name ?>"
-			/>
+	
+		<table id="repeatable-fieldset-one" width="100%">
+		<thead>
+			<tr>
+				<th width="40%">Name</th>
+				<th width="12%">Select</th>
+				<th width="40%">URL</th>
+				<th width="8%"></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		
+		if ( $repeatable_fields ) :
+		
+		foreach ( $repeatable_fields as $field ) {
+		?>
+		<tr>
+			<td><input type="text" class="widefat" name="name[]" value="<?php if($field['name'] != '') echo esc_attr( $field['name'] ); ?>" /></td>
+		
+			<td>
+				<select name="select[]">
+				<?php foreach ( $options as $label => $value ) : ?>
+				<option value="<?php echo $value; ?>"<?php selected( $field['select'], $value ); ?>><?php echo $label; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
+		
+			<td><input type="text" class="widefat" name="url[]" value="<?php if ($field['url'] != '') echo esc_attr( $field['url'] ); else echo 'http://'; ?>" /></td>
+		
+			<td><a class="button remove-row" href="#">Remove</a></td>
+		</tr>
+		<?php
+		}
+		else :
+		// show a blank one
+		?>
+		<tr>
+			<td><input type="text" class="widefat" name="name[]" /></td>
+		
+			<td>
+				<select name="select[]">
+				<?php foreach ( $options as $label => $value ) : ?>
+				<option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
+		
+			<td><input type="text" class="widefat" name="url[]" value="http://" /></td>
+		
+			<td><a class="button remove-row" href="#">Remove</a></td>
+		</tr>
+		<?php endif; ?>
+		
+		<!-- empty hidden one for jQuery -->
+		<tr class="empty-row screen-reader-text">
+			<td><input type="text" class="widefat" name="name[]" /></td>
+		
+			<td>
+				<select name="select[]">
+				<?php foreach ( $options as $label => $value ) : ?>
+				<option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
 			
-			<input 
-				type="text"
-				name="<?php echo $name2 ?>"
-				value="<?php echo $value2 ?>"
-				class="field-<?php echo $name2 ?>"
-			/>
+			<td><input type="text" class="widefat" name="url[]" value="http://" /></td>
+			
+			<td><a class="button remove-row" href="#">Remove</a></td>
+		</tr>
+		</tbody>
+		</table>
+		
+		<p><a id="add-row" class="button" href="#">Add another</a></p>
 		<?php
 	}
 
+
+	public function hhs_repeatable_meta_box_save($post_id) {
+		if ( ! isset( $_POST['hhs_repeatable_meta_box_nonce'] ) ||
+		! wp_verify_nonce( $_POST['hhs_repeatable_meta_box_nonce'], 'hhs_repeatable_meta_box_nonce' ) )
+			return;
+		
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			return;
+		
+		if (!current_user_can('edit_post', $post_id))
+			return;
+		
+		$old = get_post_meta($post_id, 'repeatable_fields', true);
+		$new = array();
+		$options = hhs_get_sample_options();
+		
+		$names = $_POST['name'];
+		$selects = $_POST['select'];
+		$urls = $_POST['url'];
+		
+		$count = count( $names );
+		
+		for ( $i = 0; $i < $count; $i++ ) {
+			if ( $names[$i] != '' ) :
+				$new[$i]['name'] = stripslashes( strip_tags( $names[$i] ) );
+				
+				if ( in_array( $selects[$i], $options ) )
+					$new[$i]['select'] = $selects[$i];
+				else
+					$new[$i]['select'] = '';
+			
+				if ( $urls[$i] == 'http://' )
+					$new[$i]['url'] = '';
+				else
+					$new[$i]['url'] = stripslashes( $urls[$i] ); // and however you want to sanitize
+			endif;
+		}
+
+		if ( !empty( $new ) && $new != $old )
+			update_post_meta( $post_id, 'repeatable_fields', $new );
+		elseif ( empty($new) && $old )
+			delete_post_meta( $post_id, 'repeatable_fields', $old );
+	}
 }

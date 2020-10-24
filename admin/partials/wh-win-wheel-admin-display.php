@@ -29,10 +29,16 @@
         // Security fields
         settings_fields('wh-win-wheel-settings-group');
 
-        // display section text
+        // Text general
         do_settings_sections('wh-win-wheel-settings');
 
+        // display section with dynamic fields
         ?>
+
+        <?php
+            do_settings_sections('wh-win-wheel-settings-form');
+        ?>
+
 
         <?php submit_button(); ?>
     </form>

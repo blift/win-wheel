@@ -116,6 +116,7 @@ class Wh_Win_Wheel {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wh-win-wheel-admin.php';
 
+		
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -160,6 +161,10 @@ class Wh_Win_Wheel {
 		// Add settings plugin page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+
+		// Add metabox
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'hhs_add_meta_boxes' );
+		$this->loader->add_action( 'save_post', $plugin_admin, 'hhs_repeatable_meta_box_save' );
 
 	}
 
