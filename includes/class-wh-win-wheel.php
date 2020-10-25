@@ -78,6 +78,7 @@ class Wh_Win_Wheel {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->define_shortcode_hooks();
 
 	}
 
@@ -123,6 +124,12 @@ class Wh_Win_Wheel {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wh-win-wheel-public.php';
 
+
+		/*
+		* Register the shortcode
+		*/
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wh-win-wheel-shortcode.php';
+
 		$this->loader = new Wh_Win_Wheel_Loader();
 
 	}
@@ -161,10 +168,8 @@ class Wh_Win_Wheel {
 		// Add settings plugin page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_init' );
 
-		// Add metabox
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'hhs_add_meta_boxes' );
-		$this->loader->add_action( 'save_post', $plugin_admin, 'hhs_repeatable_meta_box_save' );
 
 	}
 
@@ -222,6 +227,19 @@ class Wh_Win_Wheel {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/*
+	* Definde shortcode hooks
+	*/
+	public function define_shortcode_hooks()
+	{
+		$plugin_shortcode = new Wh_Win_Wheel_Shortcode (
+			$this->get_plugin_name(),
+			$this->get_version()
+		);
+	
+		add_shortcode( 'wh_win_wheel', [$plugin_shortcode, 'wh_win_wheel'] );
 	}
 
 }

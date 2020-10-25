@@ -2,3 +2,20 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+#canvas {
+    border-radius: 100%;
+}
+
+ .wh-win-alert {
+    display: none;
+ }
+
+ .wh-win-alert .active {
+     display: block;
+     width: 80%;
+     height: 400px;
+     background-color: red;
+     position: absolute;
+     top: 10%;
+ }
