@@ -3,7 +3,7 @@ Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://websitehill.com/about-us/
 Tags: comments, spam
 Requires at least: 3.0.1
-Tested up to: 3.4
+Tested up to: 5.5.1
 Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,14 +41,3 @@ https://github.com/zarocknz/javascript-winwheel - win wheel
 https://github.com/greensock/GSAP - gsap
 https://github.com/mathusummut/confetti.js/ - confetti js
 
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
