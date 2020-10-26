@@ -145,6 +145,13 @@
     text-align: center;
 }
 
+.wh-win-whell-image-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
 .wh-win-wheel-field-text {
     margin-top: 30px;
 }
@@ -157,7 +164,6 @@
 .wh-win-wheel-inner img {
     max-width: 500px;
     max-height: 200px;
-    margin: 0 auto;
 }
 
 .wh-win-wheel-close {

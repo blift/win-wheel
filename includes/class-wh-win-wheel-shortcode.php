@@ -95,7 +95,7 @@ class Wh_Win_Wheel_Shortcode {
                                 <h2><?php echo get_option('wh_win_wheel_custom_text'); ?></h2>
                             </div>    
                             <div class="wh-win-wheel-text-container"></div>
-                            
+                            <div class="wh-win-whell-image-container"></div>
                         </div>
                     </div>
                 </div>

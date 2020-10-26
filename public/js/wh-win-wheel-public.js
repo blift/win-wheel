@@ -81,7 +81,7 @@
 			{
 				// Do basic alert of the segment text.
 
-				$('.wh-win-wheel-inner').append('<img id="whWinWheelImg" src="' + indicatedSegment.image + '"/>' );
+				$('.wh-win-whell-image-container').append('<img id="whWinWheelImg" src="' + indicatedSegment.image + '"/>' );
 				$('.wh-win-wheel-text-container').append('<p id="whWinWheelTxt">' + indicatedSegment.text + '</p>');
 				$('.wh-win-alert').show();
 				confetti.start();

@@ -126,7 +126,7 @@ class Wh_Win_Wheel_Admin {
 	// All the hooks for admin init
 	public function admin_init()
 	{
-		// Add sections 
+		add_option( 'wh_win_repeatable_fields', true);
 
 	}
 
@@ -178,7 +178,7 @@ class Wh_Win_Wheel_Admin {
 		}
 
 		include 'partials/wh-win-wheel-admin-display.php';
-
+	
 	}
 	
 	// Register route for JSON
