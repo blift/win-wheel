@@ -52,7 +52,7 @@
 					}
 	
 					// Disable the spin button so can't click again while wheel is spinning.
-					document.getElementById('spin_button').src       = "http://forplugins.local/wp-content/uploads/2020/07/pennant-1.jpg";
+					//document.getElementById('spin_button').src       = "http://forplugins.local/wp-content/uploads/2020/07/pennant-1.jpg";
 					document.getElementById('spin_button').className = "";
 	
 					// Begin the spin animation by calling startAnimation on the wheel object.
@@ -73,16 +73,29 @@
 				theWheel.draw();                // Call draw to render changes to the wheel.
 	
 				wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
-				return false;
+			
 			}
 	
 
 			function alertPrize(indicatedSegment)
 			{
 				// Do basic alert of the segment text.
-				$('.wh-win-alert').addClass('active');
-				//alert(indicatedSegment.text + ' says Hi');
+
+				$('.wh-win-wheel-inner').append('<img id="whWinWheelImg" src="' + indicatedSegment.image + '"/>' );
+				$('.wh-win-wheel-text-container').append('<p id="whWinWheelTxt">' + indicatedSegment.text + '</p>');
+				$('.wh-win-alert').show();
+				confetti.start();
+
 			}
+
+			// Hide alert on click
+			$('.wh-win-wheel-close').on('click', function(e){
+				e.preventDefault();
+				$('.wh-win-alert').hide();
+				$('#whWinWheelImg').remove();
+				$('#whWinWheelTxt').remove();
+				confetti.remove();  
+			});
 		}
 		
 	});

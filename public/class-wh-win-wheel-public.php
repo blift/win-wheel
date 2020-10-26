@@ -97,8 +97,9 @@ class Wh_Win_Wheel_Public {
 		 */
 
 		wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/Winwheel.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'confetti', plugin_dir_url( __FILE__ ) . 'js/confetti.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'win-wheel', plugin_dir_url( __FILE__ ) . 'js/wh-win-wheel-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/Winwheel.min.js', array( 'jquery' ), $this->version, false );
 	}
 
 }

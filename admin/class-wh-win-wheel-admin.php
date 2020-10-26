@@ -112,6 +112,15 @@ class Wh_Win_Wheel_Admin {
 			'dashicons-images-alt',
 			50
 		);
+
+		add_submenu_page(
+			'wh-win-wheel-page', 
+			'Add custom text', 
+			'Add text to modal', 
+			'manage_options', 
+			'wh-win-wheel-page-text', 
+			array($this, 'admin_page_text_disaply')
+		);
 	}
 
 	// All the hooks for admin init
@@ -145,8 +154,10 @@ class Wh_Win_Wheel_Admin {
 					else
 						$new[$i]['image'] = stripslashes( $urls[$i] ); // and however you want to sanitize
 				endif;
+
 			}
-		
+			
+
 			if ( !empty( $new ) && $new != $old ) {
 		
 				if ( 
@@ -167,8 +178,10 @@ class Wh_Win_Wheel_Admin {
 		}
 
 		include 'partials/wh-win-wheel-admin-display.php';
+
 	}
 	
+	// Register route for JSON
 	public function rest_api_init()
 	{
 		register_rest_route( 'whwinwhell/v1', '/whell/', array(
@@ -177,11 +190,18 @@ class Wh_Win_Wheel_Admin {
 		) );
 	}
 
+	// Return array as json
 	public function wh_win_whell_json_cb()
 	{
 		$options = get_option('wh_win_repeatable_fields');
 		
 		return $options;
+	}
+
+	// Add field with text
+	public function admin_page_text_disaply()
+	{
+		include 'partials/wh-win-wheel-admin-text-display.php';
 	}
 
 }

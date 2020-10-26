@@ -1,21 +1,236 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+/* GRID */
+.wh-win-wheel-grid {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border: solid 1px #D8E1E9;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+            box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.wh-win-wheel-col-1 {
+    width: 30%;
+}
+
+.wh-win-wheel-col-2 {
+    width: 70%;
+    padding: 30px;
+}
 
 #canvas {
     border-radius: 100%;
+    width: 100%;
 }
 
- .wh-win-alert {
-    display: none;
- }
+/* CONFETTI */
+#confetti-canvas {
+    z-index: 99 !important;
+}
 
- .wh-win-alert .active {
-     display: block;
-     width: 80%;
-     height: 400px;
-     background-color: red;
-     position: absolute;
-     top: 10%;
- }
+.wh-win-wheel-control-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+}
+
+.spin_button {
+    background-color: #D8E1E9;
+    color: #333;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 18px;
+    text-align: center;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+}
+
+#spin_button {
+    background-color: #D8E1E9;
+    color: #333;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    bottom: 60px;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+#spin_reset {
+    background-color: #cd2653;
+    color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+/* MODAL */
+
+.wh-win-alert-overlay {
+    height: 100%;
+    padding-top: 60px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 9999;
+}
+
+.wh-win-alert {
+    display: none;
+}
+
+.wh-win-wheel-wrapper {
+    position: relative;
+}
+
+.wh-win-wheel-inner {
+    display: block;
+    z-index: 99999;
+    height: 600px;
+    width: 60%;
+    margin-left: 20%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 4px;
+    top: 20%;
+    overflow: hidden;
+    position: relative;
+}
+
+.wh-win-wheel-text-container {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.wh-win-wheel-field-text {
+    margin-top: 30px;
+}
+
+.wh-win-wheel-inner h2 {
+    font-size: 23px;
+    text-align: center;
+}
+
+.wh-win-wheel-inner img {
+    max-width: 500px;
+    max-height: 200px;
+    margin: 0 auto;
+}
+
+.wh-win-wheel-close {
+    padding: 15px;
+    border: solid 1px #D8E1E9;
+    border-radius: 4px;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.wh-win-wheel-close:hover {
+    background-color: #D8E1E9;
+    cursor: pointer;
+}
+
+
+@media (max-width: 980px) {
+    /* GRID */
+    .wh-win-wheel-grid {
+        max-width: 980px;
+        margin-left: auto;
+        margin-right: auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    }
+
+    .wh-win-wheel-col-1 {
+        width: 100%;
+    }
+
+    .wh-win-wheel-col-2 {
+        width: 100%;
+    }
+    .wh-win-wheel-control-wrapper {
+        position: relative;
+        height: 150px;
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+    }
+
+    .spin_button {
+        background-color: #D8E1E9;
+        color: #333;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 4px;
+        font-weight: normal;
+        font-size: 18px;
+        text-align: center;
+        max-width: 180px;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+
+    /* MODAL */
+    .wh-win-wheel-inner {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
