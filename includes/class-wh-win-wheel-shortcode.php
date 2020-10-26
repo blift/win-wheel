@@ -67,7 +67,6 @@ class Wh_Win_Wheel_Shortcode {
     {
         ?>
         <div class="wh-win-front-center">
-        <canvas id="canvasConfetti"></canvas>
             <div class="wh-win-wheel-grid">
                 <div class="wh-win-wheel-col-1">
                     <div class="wh-win-wheel-control-wrapper">
