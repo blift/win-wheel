@@ -96,10 +96,29 @@ class Wh_Win_Wheel_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'gsap', 'http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'confetti', plugin_dir_url( __FILE__ ) . 'js/confetti.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'win-wheel', plugin_dir_url( __FILE__ ) . 'js/wh-win-wheel-public.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/Winwheel.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/Winwheel.js', array( 'jquery' ), $this->version, false );
 	}
 
+
+	// Register route for JSON
+	public function register_rest_api()
+	{
+		register_rest_route( 'whwinwhell/v1', '/whell/', array(
+			'methods' => 'GET',
+			'callback' => [$this, 'wh_win_whell_json_cb'],
+			'permission_callback' => '__return_true',
+		) );
+
+	}
+
+	// Return array as json
+	public function wh_win_whell_json_cb($args)
+	{
+		$args = get_option('wh_win_repeatable_fields');
+		
+		return $args;
+	}
 }

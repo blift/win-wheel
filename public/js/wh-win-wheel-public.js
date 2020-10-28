@@ -9,7 +9,7 @@
 
 			let opt = {
 				'numSegments'       : imagesJSON.length,                // Specify number of segments.
-				'outerRadius'       : 400,              // Set outer radius so wheel fits inside the background.
+				'outerRadius'       : 180,              // Set outer radius so wheel fits inside the background.
 				'drawText'          : true,             // Code drawn text can be used with segment images.
 				'textFontSize'      : 14,               // Set text options as desired.
 				'textOrientation'   : 'curved',
@@ -19,6 +19,9 @@
 				'textStrokeStyle'   : 'black',
 				'textLineWidth'     : 1,
 				'textFillStyle'     : 'white',
+				'imageDirection'    : 'N', 
+				'centerX'    : 200,         // Set x and y as number.
+				'centerY'    : 200,
 				'drawMode'          : 'segmentImage',    // Must be segmentImage to draw wheel using one image per segemnt.
 				segments: imagesJSON,
 				'animation' :           // Specify the animation to use.
@@ -31,7 +34,6 @@
 			};
 
 			let theWheel = new Winwheel( opt );
-			let wheelPower    = 0;
 			let wheelSpinning = false;
 			
 			// -------------------------------------------------------
@@ -41,15 +43,6 @@
 			{
 				// Ensure that spinning can't be clicked again while already running.
 				if (wheelSpinning == false) {
-					// Based on the power level selected adjust the number of spins for the wheel, the more times is has
-					// to rotate with the duration of the animation the quicker the wheel spins.
-					if (wheelPower == 1) {
-						theWheel.animation.spins = 3;
-					} else if (wheelPower == 2) {
-						theWheel.animation.spins = 8;
-					} else if (wheelPower == 3) {
-						theWheel.animation.spins = 15;
-					}
 	
 					// Disable the spin button so can't click again while wheel is spinning.
 					//document.getElementById('spin_button').src       = "http://forplugins.local/wp-content/uploads/2020/07/pennant-1.jpg";

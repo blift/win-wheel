@@ -181,22 +181,6 @@ class Wh_Win_Wheel_Admin {
 	
 	}
 	
-	// Register route for JSON
-	public function rest_api_init()
-	{
-		register_rest_route( 'whwinwhell/v1', '/whell/', array(
-			'methods' => 'GET',
-			'callback' => [$this, 'wh_win_whell_json_cb']
-		) );
-	}
-
-	// Return array as json
-	public function wh_win_whell_json_cb()
-	{
-		$options = get_option('wh_win_repeatable_fields');
-		
-		return $options;
-	}
 
 	// Add field with text
 	public function admin_page_text_disaply()

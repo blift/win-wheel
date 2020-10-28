@@ -168,8 +168,6 @@ class Wh_Win_Wheel {
 		// Add settings plugin page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
-		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_init' );
-
 
 	}
 
@@ -186,6 +184,8 @@ class Wh_Win_Wheel {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$this->loader->add_action( 'rest_api_init', $plugin_public, 'register_rest_api' );
 
 	}
 
