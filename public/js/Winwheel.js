@@ -233,7 +233,7 @@ function Winwheel(options, drawWheel)
 
         for (let y = 1; y <= this.numSegments; y ++) {
             if (this.segments[y].image !== null) {
-                this.segments[y].imgData = new Image();
+                this.segments[y].imgData = new Image(50, 50);
                 this.segments[y].imgData.onload = winwheelLoadedImage;
                 this.segments[y].imgData.src = this.segments[y].image;
             }
@@ -557,7 +557,7 @@ Winwheel.prototype.drawSegmentImages = function()
                         imageAngle = (seg.startAngle + 180 + ((seg.endAngle - seg.startAngle) / 2));
                     } else if (imageDirection == 'E') {
                         // Left set so image starts and the center point.
-                        imageLeft = centerX;
+                        imageLeft = 310;
 
                         // Top is so that it sits half/half over the 90 degree point.
                         imageTop = (centerY - (scaledHeight / 2));

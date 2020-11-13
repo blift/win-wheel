@@ -19,7 +19,9 @@
 				'textStrokeStyle'   : 'black',
 				'textLineWidth'     : 1,
 				'textFillStyle'     : 'white',
-				'imageDirection'    : 'N', 
+				'strokeStyle'       : 'black',
+				'imageDirection'    : 'E',
+				'imageOverlay' : true, 
 				'centerX'    : 200,         // Set x and y as number.
 				'centerY'    : 200,
 				'drawMode'          : 'segmentImage',    // Must be segmentImage to draw wheel using one image per segemnt.
